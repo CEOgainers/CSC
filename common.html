@@ -1,1 +1,698 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Commonwealth Scholarship Guide - Gainers' Future</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body{font-family:'Nunito','Hind Siliguri',sans-serif}
+    .bengali{font-family:'Hind Siliguri',sans-serif}
+    .gradient-header{background:linear-gradient(135deg,#0f766e 0%,#0d9488 100%)}
+    [data-lang-key]{display:inline}
+    .lang-toggle-btn{transition:background-color .3s ease,color .3s ease}
+    .lang-toggle-btn.active{background-color:#f8fafc;color:#0d9488}
+    .card{background-color:var(--card-bg,#fff);border-radius:1rem;box-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);transition:transform .4s cubic-bezier(.25,.46,.45,.94),box-shadow .4s cubic-bezier(.25,.46,.45,.94)}
+    .card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 12px 20px -5px rgba(0,0,0,.15),0 5px 10px -2px rgba(0,0,0,.08)}
+    .section-title{font-weight:800}
+    details>summary{list-style:none;cursor:pointer}
+    details>summary::-webkit-details-marker{display:none}
+    .plus-icon{transition:transform .3s ease-in-out}
+    details[open] summary .plus-icon{transform:rotate(45deg)}
+    .accordion-content{transition:max-height .5s ease-in-out,opacity .5s ease-in-out,padding .5s ease-in-out;max-height:0;opacity:0;overflow:hidden;padding-left:1.5rem;padding-right:1.5rem}
+    details[open] .accordion-content{max-height:1000px;opacity:1;padding-bottom:1.5rem}
+    .reveal{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.show{opacity:1;transform:translateY(0)}
+    .countdown-ring{width:120px;height:120px}
+    .ticker{backdrop-filter:blur(6px)}
+    .carousel{position:relative}
+    .carousel-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;overflow:hidden;scroll-snap-type:x mandatory}
+    .carousel-slide{scroll-snap-align:center}
+    .glass{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15)}
+    @media (prefers-color-scheme: dark){:root{color-scheme:dark}}
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
 
+  <header class="gradient-header text-white sticky top-0 z-50 shadow-lg">
+    <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <img src="https://raw.githubusercontent.com/feathericons/feather/master/icons/award.svg" alt="logo" class="w-7 h-7 invert"/>
+        <div class="text-2xl font-bold">
+          <span data-lang-key="header_title_en" class="text-2xl font-extrabold text-white">Gainers' Future</span>
+          <span data-lang-key="header_title_bn" class="hidden bengali text-2xl font-extrabold text-white">গেইনার্স ফিউচার</span>
+        </div>
+      </div>
+      <div class="hidden md:flex space-x-6 items-center">
+        <a href="#eligibility-checker" class="hover:text-slate-200"><span data-lang-key="nav_eligibility_en">Eligibility</span><span data-lang-key="nav_eligibility_bn" class="hidden bengali">যোগ্যতা</span></a>
+        <a href="#application-journey" class="hover:text-slate-200"><span data-lang-key="nav_journey_en">Journey</span><span data-lang-key="nav_journey_bn" class="hidden bengali">আবেদন যাত্রা</span></a>
+        <a href="#university-explorer" class="hover:text-slate-200"><span data-lang-key="nav_universities_en">Universities</span><span data-lang-key="nav_universities_bn" class="hidden bengali">বিশ্ববিদ্যালয়</span></a>
+        <a href="#blog" class="hover:text-slate-200"><span data-lang-key="nav_blog_en">Blog</span><span data-lang-key="nav_blog_bn" class="hidden bengali">ব্লগ</span></a>
+        <a href="#faq" class="hover:text-slate-200"><span data-lang-key="nav_faq_en">FAQ</span><span data-lang-key="nav_faq_bn" class="hidden bengali">জিজ্ঞাসা</span></a>
+        <a href="#contact" class="bg-slate-50 text-teal-700 font-semibold px-4 py-2 rounded-full hover:bg-slate-200 transition-colors transform hover:scale-105"><span data-lang-key="nav_contact_en">Contact Us</span><span data-lang-key="nav_contact_bn" class="hidden bengali">যোগাযোগ</span></a>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-white/20" aria-label="Toggle theme">
+          <i data-lucide="moon" class="w-5 h-5 text-white"></i>
+        </button>
+        <div class="bg-black/20 rounded-full p-1 flex text-sm mr-2">
+          <button id="lang-en" class="lang-toggle-btn active font-semibold px-3 py-1 rounded-full text-white">EN</button>
+          <button id="lang-bn" class="lang-toggle-btn font-semibold px-3 py-1 rounded-full text-white bengali">বাং</button>
+        </div>
+        <button id="menu-btn" class="md:hidden text-white focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        </button>
+      </div>
+    </nav>
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0d9488]">
+      <a href="#eligibility-checker" class="block py-2 px-4 text-sm hover:bg-[#0f766e]"><span data-lang-key="nav_eligibility_en">Eligibility</span><span data-lang-key="nav_eligibility_bn" class="hidden bengali">যোগ্যতা</span></a>
+      <a href="#application-journey" class="block py-2 px-4 text-sm hover:bg-[#0f766e]"><span data-lang-key="nav_journey_en">Journey</span><span data-lang-key="nav_journey_bn" class="hidden bengali">আবেদন যাত্রা</span></a>
+      <a href="#university-explorer" class="block py-2 px-4 text-sm hover:bg-[#0f766e]"><span data-lang-key="nav_universities_en">Universities</span><span data-lang-key="nav_universities_bn" class="hidden bengali">বিশ্ববিদ্যালয়</span></a>
+      <a href="#blog" class="block py-2 px-4 text-sm hover:bg-[#0f766e]"><span data-lang-key="nav_blog_en">Blog</span><span data-lang-key="nav_blog_bn" class="hidden bengali">ব্লগ</span></a>
+      <a href="#faq" class="block py-2 px-4 text-sm hover:bg-[#0f766e]"><span data-lang-key="nav_faq_en">FAQ</span><span data-lang-key="nav_faq_bn" class="hidden bengali">জিজ্ঞাসা</span></a>
+      <a href="#contact" class="block py-2 px-4 text-sm hover:bg-[#0f766e]"><span data-lang-key="nav_contact_en">Contact Us</span><span data-lang-key="nav_contact_bn" class="hidden bengali">যোগাযোগ</span></a>
+    </div>
+  </header>
+
+  <section class="relative gradient-header pt-16 pb-24 overflow-hidden">
+    <canvas id="hero-canvas" class="absolute inset-0 w-full h-full opacity-30"></canvas>
+    <div class="container mx-auto text-center px-6 relative">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-slate-50">
+        <span data-lang-key="hero_title_en">Commonwealth Scholarship Guide</span>
+        <span data-lang-key="hero_title_bn" class="hidden bengali">কমনওয়েলথ স্কলারশিপ গাইড</span>
+      </h1>
+      <p class="mt-4 text-lg text-slate-200 max-w-3xl mx-auto">
+        <span data-lang-key="hero_subtitle_en">A complete, step-by-step guide for Bangladeshi students. Gainers' Future is with you on your journey to fulfilling your dream.</span>
+        <span data-lang-key="hero_subtitle_bn" class="hidden bengali">বাংলাদেশী শিক্ষার্থীদের জন্য একটি সম্পূর্ণ গাইড। আপনার স্বপ্ন পূরণের যাত্রায় গেইনার্স ফিউচার আপনার সাথে আছে।</span>
+      </p>
+      <div class="mt-8 flex items-center justify-center gap-3 ticker px-4 py-2 rounded-full bg-white/10 text-slate-50">
+        <i data-lucide="sparkles"></i>
+        <span class="text-sm">95+ UK partner universities</span>
+        <span class="opacity-50">•</span>
+        <span class="text-sm">SOP/LOR/CV review</span>
+        <span class="opacity-50">•</span>
+        <span class="text-sm">Mock viva & interview prep</span>
+      </div>
+    </div>
+
+    <!-- Compact countdown over hero bottom -->
+    <div class="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[90%] md:w-[75%]">
+      <div class="card p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-center glass text-white">
+        <div class="flex flex-col items-center">
+          <div class="countdown-ring">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" stroke="rgba(255,255,255,.2)" stroke-width="10" fill="none"/>
+              <circle id="ring-days" cx="60" cy="60" r="54" stroke="#a7f3d0" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+            </svg>
+          </div>
+          <div class="mt-2"><span id="days" class="text-2xl font-extrabold">00</span><div class="text-xs">Days</div></div>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="countdown-ring">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" stroke="rgba(255,255,255,.2)" stroke-width="10" fill="none"/>
+              <circle id="ring-hours" cx="60" cy="60" r="54" stroke="#93c5fd" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+            </svg>
+          </div>
+          <div class="mt-2"><span id="hours" class="text-2xl font-extrabold">00</span><div class="text-xs">Hours</div></div>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="countdown-ring">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" stroke="rgba(255,255,255,.2)" stroke-width="10" fill="none"/>
+              <circle id="ring-minutes" cx="60" cy="60" r="54" stroke="#fcd34d" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+            </svg>
+          </div>
+          <div class="mt-2"><span id="minutes" class="text-2xl font-extrabold">00</span><div class="text-xs">Minutes</div></div>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="countdown-ring">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" stroke="rgba(255,255,255,.2)" stroke-width="10" fill="none"/>
+              <circle id="ring-seconds" cx="60" cy="60" r="54" stroke="#fda4af" stroke-width="10" fill="none" stroke-linecap="round" stroke-dasharray="339.292" stroke-dashoffset="339.292"/>
+            </svg>
+          </div>
+          <div class="mt-2"><span id="seconds" class="text-2xl font-extrabold">00</span><div class="text-xs">Seconds</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="container mx-auto px-6 pt-24 pb-12">
+    <!-- Eligibility -->
+    <section id="eligibility-checker" class="mb-12 reveal">
+      <div class="card p-8">
+        <h2 class="section-title text-2xl md:text-3xl text-center mb-2">
+          <span data-lang-key="eligibility_checker_title_en">Are You Eligible? ✅</span>
+          <span data-lang-key="eligibility_checker_title_bn" class="hidden bengali">আপনি কি যোগ্য? ✅</span>
+        </h2>
+        <p class="text-center text-slate-500 mb-6">
+          <span data-lang-key="eligibility_checker_subtitle_en">Answer a few simple questions to check your eligibility.</span>
+          <span data-lang-key="eligibility_checker_subtitle_bn" class="hidden bengali">আপনার যোগ্যতা যাচাই করতে কয়েকটি সহজ প্রশ্নের উত্তর দিন।</span>
+        </p>
+        <form id="eligibility-form" class="space-y-4 max-w-3xl mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="font-semibold"><span data-lang-key="q1_en">Are you a citizen of Bangladesh?</span><span data-lang-key="q1_bn" class="hidden bengali">আপনি কি বাংলাদেশের নাগরিক?</span></label>
+              <select id="q1" class="mt-1 block w-full p-3 border border-slate-200 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                <option value="yes">Yes</option><option value="no">No</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold"><span data-lang-key="q2_en">What is your undergraduate result?</span><span data-lang-key="q2_bn" class="hidden bengali">আপনার স্নাতক ফলাফল কি?</span></label>
+              <select id="q2" class="mt-1 block w-full p-3 border border-slate-200 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                <option value="2:1">2:1 (Upper Second-Class)</option><option value="2:2">2:2 (Lower Second-Class)</option>
+              </select>
+            </div>
+            <div id="master-wrap" class="transition-all">
+              <label class="font-semibold"><span data-lang-key="q3_en">If 2:2, do you have a Master's degree?</span><span data-lang-key="q3_bn" class="hidden bengali">যদি ২:২ হয়, আপনার কি মাস্টার্স আছে?</span></label>
+              <select id="q3" class="mt-1 block w-full p-3 border border-slate-200 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                <option value="no">No</option><option value="yes">Yes</option>
+              </select>
+              <p id="master-hint" class="text-xs text-slate-500 mt-1 hidden">Shown only if your undergraduate result is 2:2</p>
+            </div>
+            <div>
+              <label class="font-semibold"><span data-lang-key="q4_en">Are you currently enrolled in a PhD/MPhil?</span><span data-lang-key="q4_bn" class="hidden bengali">আপনি কি বর্তমানে পিএইচডি/এমফিলে ভর্তি?</span></label>
+              <select id="q4" class="mt-1 block w-full p-3 border border-slate-200 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
+                <option value="no">No</option><option value="yes">Yes</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="w-full mt-4 bg-teal-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-teal-700 transition-transform transform hover:scale-105">
+            <span data-lang-key="eligibility_checker_btn_en">Check Eligibility</span>
+            <span data-lang-key="eligibility_checker_btn_bn" class="hidden bengali">যোগ্যতা যাচাই করুন</span>
+          </button>
+        </form>
+        <div id="eligibility-result" class="mt-6 text-center text-lg font-semibold p-4 rounded-md hidden"></div>
+      </div>
+    </section>
+
+    <!-- UGC -->
+    <section id="ugc-details" class="mb-12 reveal">
+      <h2 class="section-title text-2xl md:text-3xl text-center mb-8">
+        <span data-lang-key="ugc_title_en">UGC Circular: Scholarship 2026</span>
+        <span data-lang-key="ugc_title_bn" class="hidden bengali">ইউজিসি বিজ্ঞপ্তি: স্কলারশিপ ২০২৬</span>
+      </h2>
+      <div class="card p-8">
+        <details class="border-b" open>
+          <summary class="py-4 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="ugc_cat_title_en">Categories & Duration</span><span data-lang-key="ugc_cat_title_bn" class="hidden bengali">বিভাগ ও মেয়াদ</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content">
+            <ul class="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-300 pt-2">
+              <li><span class="font-semibold"><span data-lang-key="ugc_cat1_title_en">Masters (MS):</span><span data-lang-key="ugc_cat1_title_bn" class="hidden bengali">মাস্টার্স (MS):</span></span> <span data-lang-key="ugc_cat1_desc_en">One-year postgraduate course.</span><span data-lang-key="ugc_cat1_desc_bn" class="hidden bengali">এক বছর মেয়াদী স্নাতকোত্তর কোর্স।</span></li>
+              <li><span class="font-semibold"><span data-lang-key="ugc_cat2_title_en">Doctoral (PhD):</span><span data-lang-key="ugc_cat2_title_bn" class="hidden bengali">ডক্টরাল (PhD):</span></span> <span data-lang-key="ugc_cat2_desc_en">Doctoral degree for a maximum of three years.</span><span data-lang-key="ugc_cat2_desc_bn" class="hidden bengali">সর্বোচ্চ তিন বছর মেয়াদী ডক্টরাল ডিগ্রী।</span></li>
+            </ul>
+          </div>
+        </details>
+        <details class="border-b">
+          <summary class="py-4 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="ugc_eligibility_title_en">Application Eligibility</span><span data-lang-key="ugc_eligibility_title_bn" class="hidden bengali">আবেদনের যোগ্যতা</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+              <div>
+                <h4 class="font-semibold text-md mb-2"><span data-lang-key="ugc_eligibility_ms_title_en">For Masters Program:</span><span data-lang-key="ugc_eligibility_ms_title_bn" class="hidden bengali">মাস্টার্স প্রোগ্রামের জন্য:</span></h4>
+                <ul class="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                  <li><span data-lang-key="ugc_ms_req1_en">Must have a Bachelor's (Honours) degree with at least an Upper Second Class (2:1) or Second Class (2:2).</span><span data-lang-key="ugc_ms_req1_bn" class="hidden bengali">কমপক্ষে আপার সেকেন্ড ক্লাস (২:১) বা সেকেন্ড ক্লাস (২:২) সহ স্নাতক (অনার্স) ডিগ্রীধারী হতে হবে।</span></li>
+                  <li><span data-lang-key="ugc_ms_req2_en">If the Bachelor's degree is a Second Class (2:2), a relevant Master's degree is required.</span><span data-lang-key="ugc_ms_req2_bn" class="hidden bengali">যদি স্নাতক ডিগ্রী সেকেন্ড ক্লাস (২:২) হয়, তবে সেক্ষেত্রে একটি প্রাসঙ্গিক স্নাতকোত্তর ডিগ্রী থাকতে হবে।</span></li>
+                  <li><span data-lang-key="ugc_ms_req3_en">Must not be currently enrolled in any Masters, MPhil, or PhD program.</span><span data-lang-key="ugc_ms_req3_bn" class="hidden bengali">বর্তমানে দেশে বা বিদেশে কোনো মাস্টার্স, এমফিল বা পিএইচডি প্রোগ্রামে ভর্তি বা রেজিস্টার্ড থাকতে পারবেন না।</span></li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold text-md mb-2"><span data-lang-key="ugc_eligibility_phd_title_en">For PhD Program:</span><span data-lang-key="ugc_eligibility_phd_title_bn" class="hidden bengali">পিএইচডি প্রোগ্রামের জন্য:</span></h4>
+                <ul class="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-300">
+                  <li><span data-lang-key="ugc_phd_req1_en">Must have a Bachelor's (Honours) degree with at least an Upper Second Class (2:1) or Second Class (2:2) and a relevant Master's degree.</span><span data-lang-key="ugc_phd_req1_bn" class="hidden bengali">কমপক্ষে আপার সেকেন্ড ক্লাস (২:১) বা সেকেন্ড ক্লাস (২:২) সহ স্নাতক (অনার্স) ডিগ্রী এবং একটি প্রাসঙ্গিক স্নাতকোত্তর ডিগ্রীধারী হতে হবে।</span></li>
+                  <li><span data-lang-key="ugc_phd_req2_en">Must not be currently enrolled in any PhD or MPhil program.</span><span data-lang-key="ugc_phd_req2_bn" class="hidden bengali">বর্তমানে দেশে বা বিদেশে কোনো পিএইচডি বা এমফিল প্রোগ্রামে ভর্তি বা রেজিস্টার্ড থাকতে পারবেন না।</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+        <details class="border-b">
+          <summary class="py-4 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="ugc_process_title_en">Application Process</span><span data-lang-key="ugc_process_title_bn" class="hidden bengali">আবেদন প্রক্রিয়া</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content">
+            <ol class="list-decimal list-inside space-y-2 text-slate-600 dark:text-slate-300 pt-2">
+              <li><span data-lang-key="ugc_proc1_en">The application form must be typed, not handwritten.</span><span data-lang-key="ugc_proc1_bn" class="hidden bengali">আবেদন ফরমটি টাইপ করতে হবে, হাতে লেখা যাবে না।</span></li>
+              <li><span data-lang-key="ugc_proc2_en">A hard copy of the application must be submitted.</span><span data-lang-key="ugc_proc2_bn" class="hidden bengali">আবেদনপত্রের হার্ড কপি জমা দিতে হবে।</span></li>
+              <li><span data-lang-key="ugc_proc3_en">Employed applicants must apply through the proper authorities.</span><span data-lang-key="ugc_proc3_bn" class="hidden bengali">চাকরিরত আবেদনকারীদের অবশ্যই যথাযথ কর্তৃপক্ষের মাধ্যমে আবেদন করতে হবে।</span></li>
+              <li><span data-lang-key="ugc_proc4_en">Attach certificates, mark sheets, offer letter, language proficiency certificate (if necessary), and one attested passport-size photograph.</span><span data-lang-key="ugc_proc4_bn" class="hidden bengali">সার্টিফিকেট, মার্কশিট, অফার লেটার, ভাষা দক্ষতার সার্টিফিকেট এবং এক কপি সত্যায়িত পাসপোর্ট সাইজের ছবি সংযুক্ত করতে হবে।</span></li>
+            </ol>
+          </div>
+        </details>
+        <details>
+          <summary class="py-4 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="ugc_imp_title_en">Important Instructions</span><span data-lang-key="ugc_imp_title_bn" class="hidden bengali">গুরুত্বপূর্ণ নির্দেশাবলী</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content">
+            <ul class="list-disc list-inside space-y-3 text-slate-600 dark:text-slate-300 pt-2">
+              <li><span data-lang-key="ugc_imp1_en">Incomplete or flawed applications will be rejected outright.</span><span data-lang-key="ugc_imp1_bn" class="hidden bengali">অসম্পূর্ণ বা ত্রুটিপূর্ণ আবেদন সরাসরি বাতিল বলে গণ্য হবে।</span></li>
+              <li><span data-lang-key="ugc_imp2_en">Only shortlisted candidates will be called for an interview.</span><span data-lang-key="ugc_imp2_bn" class="hidden bengali">শুধুমাত্র প্রাথমিকভাবে নির্বাচিত প্রার্থীদের সাক্ষাৎকারের জন্য ডাকা হবে।</span></li>
+              <li><span data-lang-key="ugc_imp3_en">All information will be published on the UGC website: <strong>www.ugc.gov.bd</strong>. UGC will not contact any applicant personally.</span><span data-lang-key="ugc_imp3_bn" class="hidden bengali">সকল তথ্য UGC-এর ওয়েবসাইটে (<strong>www.ugc.gov.bd</strong>) প্রকাশ করা হবে। UGC ব্যক্তিগতভাবে যোগাযোগ করবে না।</span></li>
+              <li><span data-lang-key="ugc_imp4_en">Submit the application in an envelope with the scholarship name and category mentioned on top, in the drop box at the UGC building's reception.</span><span data-lang-key="ugc_imp4_bn" class="hidden bengali">খামের উপর বৃত্তির নাম ও বিভাগ উল্লেখ করে UGC ভবনের অভ্যর্থনা কক্ষের ড্রপ বক্সে আবেদনপত্র জমা দিতে হবে।</span></li>
+            </ul>
+            <div class="mt-6 border-t pt-4">
+              <p class="font-semibold"><span data-lang-key="ugc_address_title_en">Submission Address:</span><span data-lang-key="ugc_address_title_bn" class="hidden bengali">জমা দেওয়ার ঠিকানা:</span></p>
+              <p class="text-sm text-slate-500 dark:text-slate-400"><span data-lang-key="ugc_address_text_en">Director (IC), International Co-operation Division, University Grants Commission of Bangladesh, Agargaon Administrative Area, Sher-e-Bangla Nagar, Dhaka-1207.</span><span data-lang-key="ugc_address_text_bn" class="hidden bengali">পরিচালক (আইসি), আন্তর্জাতিক সহযোগিতা বিভাগ, বিশ্ববিদ্যালয় মঞ্জুরী কমিশন অফ বাংলাদেশ, আগারগাঁও প্রশাসনিক এলাকা, শের-ই-বাংলা নগর, ঢাকা-১২০৭।</span></p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Journey -->
+    <section id="application-journey" class="mb-12 reveal">
+      <h2 class="section-title text-2xl md:text-3xl text-center mb-8">
+        <span data-lang-key="journey_title_en">Your Application Journey 🛤️</span>
+        <span data-lang-key="journey_title_bn" class="hidden bengali">আপনার আবেদন যাত্রা 🛤️</span>
+      </h2>
+      <div class="space-y-4">
+        <details class="card p-0 overflow-hidden">
+          <summary class="p-6 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="journey1_title_en">Step 1: Preparation & Research</span><span data-lang-key="journey1_title_bn" class="hidden bengali">ধাপ ১: প্রস্তুতি ও গবেষণা</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content border-t"><p class="mt-4 text-slate-600 dark:text-slate-300"><span data-lang-key="journey1_desc_en">Gather documents, research UK universities, and secure an offer letter. This is a crucial first step.</span><span data-lang-key="journey1_desc_bn" class="hidden bengali">প্রয়োজনীয় কাগজপত্র সংগ্রহ করুন, যুক্তরাজ্যের বিশ্ববিদ্যালয় নিয়ে গবেষণা করুন এবং একটি অফার লেটার সংগ্রহ করুন।</span></p></div>
+        </details>
+        <details class="card p-0 overflow-hidden">
+          <summary class="p-6 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="journey2_title_en">Step 2: Online CSC Application</span><span data-lang-key="journey2_title_bn" class="hidden bengali">ধাপ ২: CSC-তে অনলাইন আবেদন</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content border-t"><p class="mt-4 text-slate-600 dark:text-slate-300"><span data-lang-key="journey2_desc_en">Fill out the official application on the CSC's online portal and upload all supporting documents.</span><span data-lang-key="journey2_desc_bn" class="hidden bengali">CSC-এর অনলাইন পোর্টালে অফিসিয়াল আবেদনপত্র পূরণ করুন এবং সমস্ত সহায়ক নথি আপলোড করুন।</span></p></div>
+        </details>
+        <details class="card p-0 overflow-hidden">
+          <summary class="p-6 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="journey3_title_en">Step 3: Physical Submission to UGC</span><span data-lang-key="journey3_title_bn" class="hidden bengali">ধাপ ৩: UGC-তে হার্ড কপি জমা</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content border-t"><p class="mt-4 text-slate-600 dark:text-slate-300"><span data-lang-key="journey3_desc_en">Print the completed online form and submit it with hard copies of all documents to the UGC office in Dhaka.</span><span data-lang-key="journey3_desc_bn" class="hidden bengali">অনলাইন ফর্মটি প্রিন্ট করুন এবং সকল কাগজপত্রের হার্ড কপি সহ ঢাকার ইউজিসি অফিসে জমা দিন।</span></p></div>
+        </details>
+        <details class="card p-0 overflow-hidden">
+          <summary class="p-6 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="journey4_title_en">Step 4: UGC Shortlisting & Viva</span><span data-lang-key="journey4_title_bn" class="hidden bengali">ধাপ ৪: ইউজিসি শর্টলিস্টিং ও ভাইভা</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content border-t"><p class="mt-4 text-slate-600 dark:text-slate-300"><span data-lang-key="journey4_desc_en">UGC reviews applications and calls shortlisted candidates for an in-person interview (viva).</span><span data-lang-key="journey4_desc_bn" class="hidden bengali">ইউজিসি আবেদন পর্যালোচনা করে এবং বাছাইকৃত প্রার্থীদের সাক্ষাৎকারের জন্য ডাকে।</span></p></div>
+        </details>
+        <details class="card p-0 overflow-hidden">
+          <summary class="p-6 flex justify-between items-center">
+            <span class="font-semibold text-lg"><span data-lang-key="journey5_title_en">Step 5: Final CSC Selection & Departure</span><span data-lang-key="journey5_title_bn" class="hidden bengali">ধাপ ৫: চূড়ান্ত নির্বাচন ও যাত্রা</span></span>
+            <span class="plus-icon text-teal-500 text-2xl font-bold">+</span>
+          </summary>
+          <div class="accordion-content border-t"><p class="mt-4 text-slate-600 dark:text-slate-300"><span data-lang-key="journey5_desc_en">The CSC makes the final selection. Successful scholars then attend pre-departure briefings and apply for their visa.</span><span data-lang-key="journey5_desc_bn" class="hidden bengali">CSC চূড়ান্ত নির্বাচন করে। সফল প্রার্থীরা প্রি-ডিপার্চার ব্রিফিংয়ে অংশ নেয় এবং ভিসার জন্য আবেদন করে।</span></p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- University Explorer -->
+    <section id="university-explorer" class="mb-12 reveal">
+      <h2 class="section-title text-2xl md:text-3xl text-center mb-8">
+        <span data-lang-key="uni_explorer_title_en">University Explorer 🎓</span>
+        <span data-lang-key="uni_explorer_title_bn" class="hidden bengali">বিশ্ববিদ্যালয় এক্সপ্লোরার 🎓</span>
+      </h2>
+      <div class="card p-8">
+        <p class="text-center text-slate-500 mb-6">
+          <span data-lang-key="uni_explorer_subtitle_en">Find your desired university from over 95 affiliated institutions.</span>
+          <span data-lang-key="uni_explorer_subtitle_bn" class="hidden bengali">অনুমোদিত ৯৫টিরও বেশি প্রতিষ্ঠান থেকে আপনার পছন্দের বিশ্ববিদ্যালয় খুঁজুন।</span>
+        </p>
+        <div class="flex flex-col md:flex-row gap-3 md:items-center md:justify-between mb-4">
+          <input type="text" id="university-search" placeholder="Search by university name..." class="w-full md:w-1/2 p-3 border border-slate-200 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500">
+          <div id="alpha-filter" class="flex flex-wrap gap-1"></div>
+        </div>
+        <div id="university-list-container" class="max-h-96 overflow-y-auto pr-2">
+          <ul id="university-list" class="space-y-2"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support -->
+    <section id="gainers-support" class="mb-12 reveal">
+      <h2 class="section-title text-2xl md:text-3xl text-center mb-8">
+        <span data-lang-key="support_title_en">How Gainers' Future Can Help 🚀</span>
+        <span data-lang-key="support_title_bn" class="hidden bengali">গেইনার্স ফিউচার যেভাবে সাহায্য করে 🚀</span>
+      </h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="card p-8">
+          <h3 class="font-bold text-xl mb-4"><span data-lang-key="support1_title_en">Offer Letter Assistance 🎯</span><span data-lang-key="support1_title_bn" class="hidden bengali">অফার লেটার সহায়তা 🎯</span></h3>
+          <p class="text-slate-500 dark:text-slate-300 mb-4"><span data-lang-key="support1_desc_en">We help you secure conditional or unconditional offer letters.</span><span data-lang-key="support1_desc_bn" class="hidden bengali">আমরা আপনাকে শর্তযুক্ত বা শর্তহীন অফার লেটার পেতে সহায়তা করি।</span></p>
+          <ul class="list-disc list-inside space-y-2 text-slate-500 dark:text-slate-300">
+            <li><span data-lang-key="support1_f1_en">Best-fit university shortlisting</span><span data-lang-key="support1_f1_bn" class="hidden bengali">সেরা বিশ্ববিদ্যালয় বাছাই</span></li>
+            <li><span data-lang-key="support1_f2_en">Document preparation assistance</span><span data-lang-key="support1_f2_bn" class="hidden bengali">নথি প্রস্তুতিতে সহায়তা</span></li>
+            <li><span data-lang-key="support1_f3_en">Interview preparation guidance</span><span data-lang-key="support1_f3_bn" class="hidden bengali">সাক্ষাৎকারের জন্য নির্দেশনা</span></li>
+          </ul>
+        </div>
+        <div class="card p-8">
+          <h3 class="font-bold text-xl mb-4"><span data-lang-key="support2_title_en">End-to-End Support 🤝</span><span data-lang-key="support2_title_bn" class="hidden bengali">সম্পূর্ণ সাপোর্ট 🤝</span></h3>
+          <p class="text-slate-500 dark:text-slate-300 mb-4"><span data-lang-key="support2_desc_en">We are by your side throughout your entire application journey.</span><span data-lang-key="support2_desc_bn" class="hidden bengali">সম্পূর্ণ আবেদন যাত্রায় আমরা আপনার পাশে আছি।</span></p>
+          <ul class="list-disc list-inside space-y-2 text-slate-500 dark:text-slate-300">
+            <li><span data-lang-key="support2_f1_en">Personalized guidance</span><span data-lang-key="support2_f1_bn" class="hidden bengali">ব্যক্তিগত নির্দেশনা</span></li>
+            <li><span data-lang-key="support2_f2_en">Professional SOP, LOR, CV preparation</span><span data-lang-key="support2_f2_bn" class="hidden bengali">SOP, LOR, CV প্রস্তুতি</span></li>
+            <li><span data-lang-key="support2_f3_en">Viva and interview preparation</span><span data-lang-key="support2_f3_bn" class="hidden bengali">ভাইভা ও সাক্ষাৎকারের প্রস্তুতি</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success stories carousel -->
+    <section id="success" class="mb-12 reveal">
+      <div class="text-center mb-8">
+        <h2 class="section-title text-2xl md:text-3xl"><span data-lang-key="success_title_en">From Aspirants to Achievers</span><span data-lang-key="success_title_bn" class="hidden bengali">স্বপ্ন থেকে সাফল্যে</span></h2>
+        <p class="text-slate-500 dark:text-slate-300 mt-2 max-w-2xl mx-auto"><span data-lang-key="success_subtitle_en">Meet some of the students we've helped secure their scholarships.</span><span data-lang-key="success_subtitle_bn" class="hidden bengali">আমাদের সহায়তায় স্কলারশিপ অর্জনকারী কয়েকজনের সাথে পরিচিত হন।</span></p>
+      </div>
+      <div class="card p-0 overflow-hidden carousel">
+        <div id="stories-track" class="carousel-track">
+          <div class="carousel-slide p-8 text-center">
+            <img src="https://placehold.co/100x100/6EE7B7/1F2937?text=SA" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-teal-200" alt="Sadia"/>
+            <p class="text-slate-600 dark:text-slate-300 italic mb-4">"Gainers' Future's guidance on my SOP was a game-changer. They helped me structure my story perfectly."</p>
+            <h4 class="font-bold text-lg"><span data-lang-key="s1_name_en">Sadia Afrin</span><span data-lang-key="s1_name_bn" class="hidden bengali">সাদিয়া আফরিন</span></h4>
+            <p class="text-sm text-slate-400"><span data-lang-key="s1_course_en">MSc Public Health, University of Edinburgh</span><span data-lang-key="s1_course_bn" class="hidden bengali">এমএসসি পাবলিক হেলথ, ইউনিভার্সিটি অফ এডিনবরা</span></p>
+          </div>
+          <div class="carousel-slide p-8 text-center">
+            <img src="https://placehold.co/100x100/FDBA74/1F2937?text=RH" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-amber-200" alt="Raihan"/>
+            <p class="text-slate-600 dark:text-slate-300 italic mb-4">"The mock interview sessions were incredibly helpful. I felt so confident during the real interview."</p>
+            <h4 class="font-bold text-lg"><span data-lang-key="s2_name_en">Raihan Hossain</span><span data-lang-key="s2_name_bn" class="hidden bengali">রায়হান হোসাইন</span></h4>
+            <p class="text-sm text-slate-400"><span data-lang-key="s2_course_en">MSc Development Economics, University of Manchester</span><span data-lang-key="s2_course_bn" class="hidden bengali">এমএসসি ডেভেলপমেন্ট ইকোনমিক্স, ইউনিভার্সিটি অফ ম্যানচেস্টার</span></p>
+          </div>
+          <div class="carousel-slide p-8 text-center">
+            <img src="https://placehold.co/100x100/A5B4FC/1F2937?text=FN" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-indigo-200" alt="Farhana"/>
+            <p class="text-slate-600 dark:text-slate-300 italic mb-4">"They made the complex application process seem so simple and manageable. Highly recommended!"</p>
+            <h4 class="font-bold text-lg"><span data-lang-key="s3_name_en">Farhana Nova</span><span data-lang-key="s3_name_bn" class="hidden bengali">ফারহানা নোভা</span></h4>
+            <p class="text-sm text-slate-400"><span data-lang-key="s3_course_en">MSc Environmental Engineering, Imperial College London</span><span data-lang-key="s3_course_bn" class="hidden bengali">এমএসসি এনভায়রনমেন্টাল ইঞ্জিনিয়ারিং, ইম্পেরিয়াল কলেজ লন্ডন</span></p>
+          </div>
+        </div>
+        <div class="flex items-center justify-center gap-3 py-4">
+          <button class="carousel-prev p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Previous"><i data-lucide="chevron-left"></i></button>
+          <div class="flex gap-1"><span class="dot w-2 h-2 rounded-full bg-slate-300"></span><span class="dot w-2 h-2 rounded-full bg-slate-300"></span><span class="dot w-2 h-2 rounded-full bg-slate-300"></span></div>
+          <button class="carousel-next p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Next"><i data-lucide="chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" class="mb-12 reveal">
+      <div class="text-center mb-8">
+        <h2 class="section-title text-2xl md:text-3xl"><span data-lang-key="blog_title_en">Latest From Our Blog</span><span data-lang-key="blog_title_bn" class="hidden bengali">আমাদের ব্লগ থেকে সর্বশেষ</span></h2>
+        <p class="text-slate-500 dark:text-slate-300 mt-2 max-w-2xl mx-auto"><span data-lang-key="blog_subtitle_en">Tips, guides, and insights to help you on your scholarship journey.</span><span data-lang-key="blog_subtitle_bn" class="hidden bengali">আপনার স্কলারশিপ যাত্রায় সহায়তার জন্য টিপস, গাইড এবং তথ্য।</span></p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card overflow-hidden">
+          <img src="https://placehold.co/600x400/34D399/FFFFFF?text=SOP" alt="Blog post image" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <span class="text-sm font-semibold text-teal-600"><span data-lang-key="blog1_tag_en">SOP WRITING</span><span data-lang-key="blog1_tag_bn" class="hidden bengali">এসওপি লেখা</span></span>
+            <h3 class="text-xl font-bold my-2"><a href="#" class="hover:text-teal-600"><span data-lang-key="blog1_title_en">5 Mistakes to Avoid in Your SOP</span><span data-lang-key="blog1_title_bn" class="hidden bengali">এসওপি-তে যে ৫টি ভুল এড়িয়ে চলবেন</span></a></h3>
+          </div>
+        </div>
+        <div class="card overflow-hidden">
+          <img src="https://placehold.co/600x400/60A5FA/FFFFFF?text=Interview" alt="Blog post image" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <span class="text-sm font-semibold text-sky-600"><span data-lang-key="blog2_tag_en">INTERVIEW PREP</span><span data-lang-key="blog2_tag_bn" class="hidden bengali">সাক্ষাৎকারের প্রস্তুতি</span></span>
+            <h3 class="text-xl font-bold my-2"><a href="#" class="hover:text-sky-600"><span data-lang-key="blog2_title_en">How to Ace Your Interview</span><span data-lang-key="blog2_title_bn" class="hidden bengali">সাক্ষাৎকারে কীভাবে সেরা হবেন</span></a></h3>
+          </div>
+        </div>
+        <div class="card overflow-hidden">
+          <img src="https://placehold.co/600x400/FBBF24/FFFFFF?text=UK+Life" alt="Blog post image" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <span class="text-sm font-semibold text-amber-600"><span data-lang-key="blog3_tag_en">STUDENT LIFE</span><span data-lang-key="blog3_tag_bn" class="hidden bengali">শিক্ষাজীবন</span></span>
+            <h3 class="text-xl font-bold my-2"><a href="#" class="hover:text-amber-600"><span data-lang-key="blog3_title_en">Guide to Student Life in the UK</span><span data-lang-key="blog3_title_bn" class="hidden bengali">যুক্তরাজ্যে ছাত্রজীবনের জন্য গাইড</span></a></h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="mb-12 reveal">
+      <h2 class="section-title text-2xl md:text-3xl text-center mb-8"><span data-lang-key="faq_title_en">Frequently Asked Questions</span><span data-lang-key="faq_title_bn" class="hidden bengali">সাধারণ জিজ্ঞাসা</span></h2>
+      <div class="max-w-3xl mx-auto space-y-4">
+        <details class="card p-0 overflow-hidden faq-item">
+          <summary class="p-6 flex justify-between items-center cursor-pointer">
+            <span class="font-semibold text-lg"><span data-lang-key="faq1_q_en">Can I apply for more than one course?</span><span data-lang-key="faq1_q_bn" class="hidden bengali">আমি কি একাধিক কোর্সের জন্য আবেদন করতে পারি?</span></span>
+            <i data-lucide="chevron-down" class="faq-icon text-teal-500"></i>
+          </summary>
+          <div class="accordion-content border-t"><p class="mt-4 text-slate-600 dark:text-slate-300"><span data-lang-key="faq1_a_en">Yes, you can apply to multiple courses. However, you must submit only one application to the CSC, listing your preferred choices.</span><span data-lang-key="faq1_a_bn" class="hidden bengali">হ্যাঁ, আপনি একাধিক কোর্সে আবেদন করতে পারেন। তবে, আপনাকে CSC-তে একটি মাত্র আবেদন জমা দিতে হবে, যেখানে আপনার পছন্দের তালিকা থাকবে।</span></p></div>
+        </details>
+        <details class="card p-0 overflow-hidden faq-item">
+          <summary class="p-6 flex justify-between items-center cursor-pointer">
+            <span class="font-semibold text-lg"><span data-lang-key="faq2_q_en">Is work experience mandatory?</span><span data-lang-key="faq2_q_bn" class="hidden bengali">কাজের অভিজ্ঞতা কি বাধ্যতামূলক?</span></span>
+            <i data-lucide="chevron-down" class="faq-icon text-teal-500"></i>
+          </summary>
+          <div class="accordion-content border-t"><p class="mt-4 text-slate-600 dark:text-slate-300"><span data-lang-key="faq2_a_en">While not always mandatory, relevant work experience can significantly strengthen your application, especially if it aligns with the CSC's development themes.</span><span data-lang-key="faq2_a_bn" class="hidden bengali">যদিও সর্বদা বাধ্যতামূলক নয়, প্রাসঙ্গিক কাজের অভিজ্ঞতা আপনার আবেদনকে শক্তিশালী করতে পারে, বিশেষ করে যদি এটি CSC-এর উন্নয়ন থিমের সাথে সামঞ্জস্যপূর্ণ হয়।</span></p></div>
+        </details>
+        <details class="card p-0 overflow-hidden faq-item">
+          <summary class="p-6 flex justify-between items-center cursor-pointer">
+            <span class="font-semibold text-lg"><span data-lang-key="faq3_q_en">What is a 'nominating agency'?</span><span data-lang-key="faq3_q_bn" class="hidden bengali">'মনোনয়নকারী সংস্থা' কী?</span></span>
+            <i data-lucide="chevron-down" class="faq-icon text-teal-500"></i>
+          </summary>
+          <div class="accordion-content border-t"><p class="mt-4 text-slate-600 dark:text-slate-300"><span data-lang-key="faq3_a_en">A nominating agency is a body in your home country responsible for nominating candidates. In Bangladesh, the University Grants Commission (UGC) serves this role.</span><span data-lang-key="faq3_a_bn" class="hidden bengali">মনোনয়নকারী সংস্থা হলো আপনার দেশের একটি প্রতিষ্ঠান যা প্রার্থীদের মনোনয়ন দেয়। বাংলাদেশে, বিশ্ববিদ্যালয় মঞ্জুরি কমিশন (ইউজিসি) এই ভূমিকা পালন করে।</span></p></div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="text-center reveal">
+      <div class="card p-10 bg-slate-800 text-white dark:bg-slate-700">
+        <h2 class="section-title text-2xl md:text-3xl mb-4"><span data-lang-key="contact_title_en">Why Wait to Fulfill Your Dream?</span><span data-lang-key="contact_title_bn" class="hidden bengali">স্বপ্ন পূরণে আর অপেক্ষা কেন?</span></h2>
+        <p class="text-slate-300 max-w-2xl mx-auto mb-6"><span data-lang-key="contact_subtitle_en">Talk to our expert team and start your Commonwealth Scholarship application process today.</span><span data-lang-key="contact_subtitle_bn" class="hidden bengali">আমাদের বিশেষজ্ঞ দলের সাথে কথা বলুন এবং আজই আপনার কমনওয়েলথ স্কলারশিপ আবেদন প্রক্রিয়া শুরু করুন।</span></p>
+        <a href="https://api.whatsapp.com/send?phone=8801813106421" target="_blank" class="inline-block bg-teal-500 text-white font-bold text-lg py-3 px-8 rounded-full shadow-lg hover:bg-teal-600 transition-transform transform hover:scale-105">
+          <span data-lang-key="contact_btn_en">Apply Now / Contact Us 📩</span>
+          <span data-lang-key="contact_btn_bn" class="hidden bengali">আবেদন করুন / যোগাযোগ করুন 📩</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-800 text-white mt-12">
+    <div class="container mx-auto p-8 text-center text-slate-400">
+      <p>&copy; 2025 <span data-lang-key="footer_title_en">Gainers' Future.</span><span data-lang-key="footer_title_bn" class="hidden bengali">গেইনার্স ফিউচার।</span> <span data-lang-key="footer_rights_en">All rights reserved.</span><span data-lang-key="footer_rights_bn" class="hidden bengali">সর্বস্বত্ব সংরক্ষিত।</span></p>
+    </div>
+  </footer>
+
+  <button id="scroll-top" class="fixed bottom-6 right-6 hidden p-3 rounded-full bg-teal-600 text-white shadow-lg hover:bg-teal-700"><i data-lucide="arrow-up"></i></button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      lucide.createIcons();
+
+      // Shadow on scroll for header
+      const header = document.querySelector('header');
+      window.addEventListener('scroll', () => header.classList.toggle('shadow-2xl', window.scrollY > 8));
+
+      // Mobile Menu
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+      // Theme toggle with persistence
+      const themeToggle = document.getElementById('theme-toggle');
+      const root = document.documentElement;
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        root.classList.add('dark');
+      }
+      themeToggle.addEventListener('click', () => {
+        root.classList.toggle('dark');
+        localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      });
+
+      // Translations (same copy as your original, shortened here for brevity)
+      const translations = {
+        en: { header_title_en:"Gainers' Future", nav_eligibility_en:"Eligibility", nav_journey_en:"Journey", nav_universities_en:"Universities", nav_blog_en:"Blog", nav_faq_en:"FAQ", nav_contact_en:"Contact Us", hero_title_en:"Commonwealth Scholarship Guide", hero_subtitle_en:"A complete, step-by-step guide for Bangladeshi students. Gainers' Future is with you on your journey to fulfilling your dream.", eligibility_checker_title_en:"Are You Eligible? ✅", eligibility_checker_subtitle_en:"Answer a few simple questions to check your eligibility.", q1_en:"Are you a citizen of Bangladesh?", q2_en:"What is your undergraduate result?", q3_en:"If 2:2, do you have a Master's degree?", q4_en:"Are you currently enrolled in a PhD/MPhil?", eligibility_checker_btn_en:"Check Eligibility", ugc_title_en:"UGC Circular: Scholarship 2026", /* ... keep rest of your EN keys ... */ footer_title_en:"Gainers' Future.", footer_rights_en:"All rights reserved." },
+        bn: { header_title_bn:"গেইনার্স ফিউচার", nav_eligibility_bn:"যোগ্যতা", nav_journey_bn:"আবেদন যাত্রা", nav_universities_bn:"বিশ্ববিদ্যালয়", nav_blog_bn:"ব্লগ", nav_faq_bn:"জিজ্ঞাসা", nav_contact_bn:"যোগাযোগ", hero_title_bn:"কমনওয়েলথ স্কলারশিপ গাইড", hero_subtitle_bn:"বাংলাদেশী শিক্ষার্থীদের জন্য একটি সম্পূর্ণ গাইড। আপনার স্বপ্ন পূরণের যাত্রায় গেইনার্স ফিউচার আপনার সাথে আছে।", eligibility_checker_title_bn:"আপনি কি যোগ্য? ✅", eligibility_checker_subtitle_bn:"আপনার যোগ্যতা যাচাই করতে কয়েকটি সহজ প্রশ্নের উত্তর দিন।", q1_bn:"আপনি কি বাংলাদেশের নাগরিক?", q2_bn:"আপনার স্নাতক ফলাফল কি?", q3_bn:"যদি ২:২ হয়, আপনার কি মাস্টার্স আছে?", q4_bn:"আপনি কি বর্তমানে পিএইচডি/এমফিলে ভর্তি?", eligibility_checker_btn_bn:"যোগ্যতা যাচাই করুন", ugc_title_bn:"ইউজিসি বিজ্ঞপ্তি: স্কলারশিপ ২০২৬", /* ... keep rest of your BN keys ... */ footer_title_bn:"গেইনার্স ফিউচার।", footer_rights_bn:"সর্বস্বত্ব সংরক্ষিত।" }
+      };
+
+      const langEnBtn = document.getElementById('lang-en');
+      const langBnBtn = document.getElementById('lang-bn');
+      let currentLang = localStorage.getItem('lang') || 'en';
+
+      function setLanguage(lang){
+        currentLang = lang;
+        localStorage.setItem('lang', lang);
+        document.documentElement.lang = lang;
+        const enEls = document.querySelectorAll('[data-lang-key$="_en"]');
+        const bnEls = document.querySelectorAll('[data-lang-key$="_bn"]');
+        if(lang==='bn'){
+          document.body.classList.add('bengali');
+          enEls.forEach(el=>el.classList.add('hidden'));
+          bnEls.forEach(el=>el.classList.remove('hidden'));
+          langBnBtn.classList.add('active'); langEnBtn.classList.remove('active');
+        }else{
+          document.body.classList.remove('bengali');
+          enEls.forEach(el=>el.classList.remove('hidden'));
+          bnEls.forEach(el=>el.classList.add('hidden'));
+          langEnBtn.classList.add('active'); langBnBtn.classList.remove('active');
+        }
+        updateEligibilityResultMessage();
+      }
+      langEnBtn.addEventListener('click',()=>setLanguage('en'));
+      langBnBtn.addEventListener('click',()=>setLanguage('bn'));
+
+      // Eligibility logic + conditional masters visibility
+      const eligibilityForm=document.getElementById('eligibility-form');
+      const eligibilityResult=document.getElementById('eligibility-result');
+      const masterWrap=document.getElementById('master-wrap');
+      const masterHint=document.getElementById('master-hint');
+
+      const eligibilityMessages={
+        en:{eligible:"Congratulations! You seem to be eligible based on the primary criteria. Contact us for the next steps.",ineligible:"Based on your answers, you may not meet the primary criteria. Contact us to explore other opportunities."},
+        bn:{eligible:"অভিনন্দন! প্রাথমিক মানদণ্ড অনুযায়ী আপনাকে যোগ্য মনে হচ্ছে। পরবর্তী পদক্ষেপের জন্য আমাদের সাথে যোগাযোগ করুন।",ineligible:"আপনার উত্তর অনুযায়ী, আপনি প্রাথমিক মানদণ্ড পূরণ নাও করতে পারেন। অন্যান্য সুযোগ জানতে আমাদের সাথে যোগাযোগ করুন।"}
+      };
+      function updateEligibilityResultMessage(){
+        if(!eligibilityResult.textContent) return;
+        const isOk=eligibilityResult.dataset.eligible==='true';
+        eligibilityResult.textContent=isOk?eligibilityMessages[currentLang].eligible:eligibilityMessages[currentLang].ineligible;
+      }
+      function toggleMastersVisibility(){
+        const degree=document.getElementById('q2').value;
+        const show=degree==='2:2';
+        masterWrap.classList.toggle('opacity-50',!show);
+        masterHint.classList.toggle('hidden',!show);
+      }
+      document.getElementById('q2').addEventListener('change',toggleMastersVisibility);
+      toggleMastersVisibility();
+
+      eligibilityForm.addEventListener('submit',function(e){
+        e.preventDefault();
+        const isCitizen=document.getElementById('q1').value==='yes';
+        const degree=document.getElementById('q2').value;
+        const postgrad=document.getElementById('q3').value;
+        const isEnrolled=document.getElementById('q4').value==='yes';
+        const ok=isCitizen&&!isEnrolled&&(degree==='2:1'||(degree==='2:2'&&postgrad==='yes'));
+        eligibilityResult.classList.remove('hidden','bg-teal-50','text-teal-800','bg-red-100','text-red-800');
+        if(ok){eligibilityResult.dataset.eligible='true';eligibilityResult.textContent=eligibilityMessages[currentLang].eligible;eligibilityResult.classList.add('bg-teal-50','text-teal-800');}
+        else{eligibilityResult.dataset.eligible='false';eligibilityResult.textContent=eligibilityMessages[currentLang].ineligible;eligibilityResult.classList.add('bg-red-100','text-red-800');}
+        eligibilityResult.animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:350,easing:'ease'});
+      });
+
+      // Countdown with progress rings
+      const countdownDate=new Date("September 25, 2025 23:59:59").getTime();
+      const twoPiR=339.292;
+      const ringDays=document.getElementById('ring-days');
+      const ringHours=document.getElementById('ring-hours');
+      const ringMinutes=document.getElementById('ring-minutes');
+      const ringSeconds=document.getElementById('ring-seconds');
+      const t=setInterval(()=>{
+        const now=Date.now();
+        const distance=countdownDate-now;
+        if(distance<0){clearInterval(t);return;}
+        const days=Math.floor(distance/(1000*60*60*24));
+        const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+        const minutes=Math.floor((distance%(1000*60*60))/ (1000*60));
+        const seconds=Math.floor((distance%(1000*60))/1000);
+        daysEl.textContent=String(days).padStart(2,'0');
+      },1000); // placeholder overwritten below
+
+      // Set numbers and ring offsets
+      const daysEl=document.getElementById('days');
+      const hoursEl=document.getElementById('hours');
+      const minutesEl=document.getElementById('minutes');
+      const secondsEl=document.getElementById('seconds');
+      const interval=setInterval(()=>{
+        const now=Date.now();
+        const distance=countdownDate-now;
+        if(distance<0){clearInterval(interval);return;}
+        const days=Math.floor(distance/86400000);
+        const hours=Math.floor((distance%86400000)/3600000);
+        const minutes=Math.floor((distance%3600000)/60000);
+        const seconds=Math.floor((distance%60000)/1000);
+        daysEl.textContent=String(days).padStart(2,'0');
+        hoursEl.textContent=String(hours).padStart(2,'0');
+        minutesEl.textContent=String(minutes).padStart(2,'0');
+        secondsEl.textContent=String(seconds).padStart(2,'0');
+        ringSeconds.style.strokeDashoffset=twoPiR*(1-seconds/60);
+        ringMinutes.style.strokeDashoffset=twoPiR*(1-minutes/60);
+        ringHours.style.strokeDashoffset=twoPiR*(1-hours/24);
+        const maxDays=100; const prog=Math.min(days/maxDays,1);
+        ringDays.style.strokeDashoffset=twoPiR*(prog);
+      },1000);
+
+      // University Explorer
+      const universities=["Aberystwyth University","Aston University","Bangor University","Bath Spa University","Birkbeck, University of London","Bishop Grosseteste University","Bournemouth University","Brunel University London","Cardiff University","City, University of London","Coventry University","Cranfield University","Durham University","Edinburgh Napier University","Falmouth University","Glasgow Caledonian University","Goldsmiths, University of London","Harper Adams University","Heriot-Watt University","Imperial College London","Keele University","King’s College London","Lancaster University","Leeds Beckett University","Liverpool Hope University","Liverpool John Moores University","Liverpool School of Tropical Medicine","London School of Economics and Political Science (LSE)","London School of Hygiene & Tropical Medicine","London South Bank University","Loughborough University","Manchester Metropolitan University","Newcastle University","Northumbria University","Nottingham Trent University","Oxford Brookes University","Queen Margaret University","Queen Mary, University of London","Queen's University Belfast","Robert Gordon University","Royal Agricultural University","Royal Veterinary College","School of Advanced Study, University of London","Sheffield Hallam University","SOAS, University of London","St George’s, University of London","St Mary’s University, Twickenham","Staffordshire University","Swansea University","Teesside University","The Open University","Ulster University","University College London (UCL)","University of Aberdeen","University of Bath","University of Birmingham","University of Bradford","University of Bristol","University of Cambridge","University of Central Lancashire","University of Chester","University of Derby","University of Dundee","University of East Anglia (UEA)","University of Edinburgh","University of Essex","University of Exeter","University of Glasgow","University of Greenwich","University of Huddersfield","University of Hull","University of Kent","University of Leeds","University of Leicester","University of Lincoln","University of Liverpool","University of Manchester","University of Nottingham","University of Oxford","University of Plymouth","University of Portsmouth","University of Reading","University of Salford","University of Sheffield","University of Southampton","University of St Andrews","University of Stirling","University of Strathclyde","University of Sunderland","University of Surrey","University of Sussex","University of the West of England","University of Warwick","University of Westminster","University of Wolverhampton","University of York"];
+      const uniList=document.getElementById('university-list');
+      const uniSearch=document.getElementById('university-search');
+      const alphaFilter=document.getElementById('alpha-filter');
+
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(letter=>{
+        const btn=document.createElement('button');
+        btn.textContent=letter;
+        btn.className='px-2 py-1 text-xs rounded-md border border-slate-200 hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800';
+        btn.addEventListener('click',()=>displayUniversities(uniSearch.value,letter));
+        alphaFilter.appendChild(btn);
+      });
+      function highlight(text,query){
+        if(!query) return text;
+        const re=new RegExp('('+query.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&')+')','ig');
+        return text.replace(re,'<mark class="bg-yellow-200 dark:bg-yellow-600 text-black dark:text-white rounded px-0.5">$1</mark>');
+      }
+      function displayUniversities(filter='',startsWith=null){
+        uniList.innerHTML='';
+        const filtered=universities.filter(uni=>{
+          const matchText=uni.toLowerCase().includes(filter.toLowerCase());
+          const matchAlpha=startsWith?uni.toUpperCase().startsWith(startsWith):true;
+          return matchText&&matchAlpha;
+        });
+        if(filtered.length){
+          filtered.forEach(uni=>{
+            const li=document.createElement('li');
+            li.innerHTML=highlight(uni,filter);
+            li.className='p-3 bg-slate-50 dark:bg-slate-800 rounded-md text-slate-600 dark:text-slate-200 transition-colors duration-200 hover:bg-teal-50 hover:text-teal-700 dark:hover:bg-slate-700';
+            uniList.appendChild(li);
+          });
+        }else{
+          uniList.innerHTML=`<li class="p-3 text-center text-slate-500">${currentLang==='en'?'No universities found.':'কোনো বিশ্ববিদ্যালয় পাওয়া যায়নি।'}</li>`;
+        }
+      }
+      uniSearch.addEventListener('input',(e)=>displayUniversities(e.target.value));
+      displayUniversities();
+
+      // Carousel
+      const track=document.getElementById('stories-track');
+      const slides=Array.from(track.children);
+      const dots=document.querySelectorAll('.dot');
+      let index=0; let auto=setInterval(next,4000);
+      function updateCarousel(){
+        track.scrollTo({left:track.clientWidth*index,behavior:'smooth'});
+        dots.forEach((d,i)=>d.className=`dot w-2 h-2 rounded-full ${i===index?'bg-teal-500':'bg-slate-300'}`);
+      }
+      function next(){index=(index+1)%slides.length;updateCarousel();}
+      function prev(){index=(index-1+slides.length)%slides.length;updateCarousel();}
+      document.querySelector('.carousel-next').addEventListener('click',()=>{clearInterval(auto);next();});
+      document.querySelector('.carousel-prev').addEventListener('click',()=>{clearInterval(auto);prev();});
+
+      // Scroll to top
+      const scrollTopBtn=document.getElementById('scroll-top');
+      window.addEventListener('scroll',()=>scrollTopBtn.classList.toggle('hidden',window.scrollY<300));
+      scrollTopBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+      // Reveal on scroll
+      const io=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('show'); io.unobserve(e.target);} });
+      },{threshold:0.08});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+      // Hero particles
+      const canvas=document.getElementById('hero-canvas');
+      const ctx=canvas.getContext('2d');
+      function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight}
+      window.addEventListener('resize',resize); resize();
+      const particles=Array.from({length:60},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+0.5,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4}));
+      (function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle='rgba(255,255,255,0.7)';
+        particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();});
+        requestAnimationFrame(draw);
+      })();
+
+      // Initial language
+      setLanguage(currentLang);
+    });
+  </script>
+</body>
+</html>
